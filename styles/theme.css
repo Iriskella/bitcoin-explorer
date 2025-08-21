@@ -1,0 +1,26 @@
+/* /styles/theme.css — centralized tokens */
+:root {
+  /* core */
+  --color-bg: #0B0F1A;          /* near-black blue background */
+  --color-text: #E6EAF2;        /* off-white text */
+  --color-text-muted: #9AA4B2;  /* muted gray-blue body copy */
+  --color-border: #1A2233;      /* subtle UI borders */
+
+  /* accents */
+  --color-accent-primary: #00FFAB;  /* electric cyan accents/links/cta */
+  --color-accent-secondary: #00FFAB;/* lighter cyan hover/gradients */
+
+  /* layout */
+  --radius: 14px;
+  --radius-lg: 18px;
+  --container-max: 1100px;
+}
+
+[data-theme="light"] {
+  --color-bg: #ffffff;
+  --color-text: #0B1220;
+  --color-text-muted: #566072;
+  --color-border: #E5E7EB;
+  --color-accent-primary: #0EA5E9;
+  --color-accent-secondary: #7DD3FC;
+}

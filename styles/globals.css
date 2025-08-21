@@ -1,0 +1,35 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bg: #0B0F1A;
+  --color-text: #E6EAF2;
+  --color-text-muted: #9AA4B2;
+  --color-accent-primary: #00C2FF;
+  --color-accent-secondary: #5DE2FF;
+  --color-border: #1A2233;
+}
+
+[data-theme="light"] {
+  --color-bg: #ffffff;
+  --color-text: #0B1220;
+  --color-text-muted: #566072;
+  --color-accent-primary: #0ea5e9;
+  --color-accent-secondary: #7dd3fc;
+  --color-border: #e5e7eb;
+}
+
+html, body, #__next { height: 100%; }
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Focus ring */
+.focus-ring:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
