@@ -37,6 +37,25 @@ Update those values to match the exact Simpliance palette when available.
 - Security headers added in `next.config.ts` (basic CSP, tighten as needed).
 - If you need a light mode, set `data-theme="light"` on `<html>`.
 
+## Sophisticated Assumptions
+- Backend API strictly follows the documented endpoints and response shapes (see above and `lib/api.ts`).
+- Bitcoin address validation is performed server-side, supporting both Base58 and Bech32 formats.
+- Transaction hashes are expected to be 64-character hex strings.
+- Frontend expects backend to handle all error messaging and returns user-friendly errors based on backend responses.
+- App is designed to be themable via CSS variables, with a light mode toggle using `data-theme="light"` on `<html>`.
+- No third-party UI kits are used; all UI is custom and minimal.
+- Security headers (including a basic CSP) are set in `next.config.ts`.
+- Frontend disables fetch caching for API calls to always show the latest data.
+
+## Bonus Features
+- Accessibility: Keyboard navigation and visible focus states are implemented.
+- Centralized design tokens for easy theming and palette updates.
+- Mock backend (`server.js`) for local development and testing, including error simulation endpoints.
+- TypeScript and ESLint/typecheck scripts included for code quality.
+- Playwright E2E test setup scaffolded in `/e2e`.
+- Responsive UI components (e.g., grid layouts in transaction details).
+- User-friendly error handling and display in the frontend.
+
 ## Scripts
 - `dev` – run locally
 - `build` / `start` – production build/serve
