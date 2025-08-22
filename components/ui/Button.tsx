@@ -10,7 +10,7 @@ export function Button(props: ButtonHTMLAttributes<HTMLButtonElement>) {
       className={clsx(
         'focus-ring inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold',
         'bg-[color:var(--color-accent-primary)]/90 hover:bg-[color:var(--color-accent-primary)]',
-        'text-black transition shadow-card border border-transparent',
+        'text-black shadow-card border border-transparent transition-base',
         className
       )}
       {...rest}

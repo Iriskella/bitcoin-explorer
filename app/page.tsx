@@ -64,10 +64,15 @@ export default function HomePage() {
     const value = state.q.trim();
     if (!value) return;
   
+    // record attempt (dedup + most-recent-first)
+    dispatch({ type: 'PUSH_HISTORY', q: value });
+  
+    // clear previous result/error without touching history
     dispatch({ type: 'CLEAR' });
+  
     const kind: Kind = detectInputType(value);
   
-    // Bonus:Robust client-side validation BEFORE fetching
+    // strict client-side validation before fetching
     if (kind === 'address' && !isValidBtcAddress(value)) {
       dispatch({ type: 'ERROR', error: 'Invalid Bitcoin address' });
       return;
@@ -80,16 +85,14 @@ export default function HomePage() {
     dispatch({ type: 'LOADING' });
   
     try {
-      const result = kind === 'transaction'
-        ? await fetchTransaction(value)
-        : await fetchAddress(value);
-  
+      const result =
+        kind === 'transaction' ? await fetchTransaction(value) : await fetchAddress(value);
       dispatch({ type: 'RESULT', kind, data: result });
-      dispatch({ type: 'PUSH_HISTORY', q: value });
     } catch (err: any) {
       dispatch({ type: 'ERROR', error: err?.message || 'Something went wrong' });
     }
   }, [state.q]);
+  
   
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -177,7 +180,7 @@ useEffect(() => {
       </Card>
       {state.loading && (
         <Card className="mt-6">
-          <div className="animate-pulse text-base-muted">Loading…</div>
+          <div className="text-base-muted animate-pulse-soft">Loading…</div>
         </Card>
       )}
 
@@ -188,12 +191,12 @@ useEffect(() => {
       )}
 
       {!state.loading && state.data && state.kind === 'address' && (
-        <AddressResult className="mt-6" data={state.data} />
+        <AddressResult className="mt-6 animate-fade-in" data={state.data} />
+      )}
+      {!state.loading && state.data && state.kind === 'transaction' && (
+        <TransactionResult className="mt-6 animate-fade-in" data={state.data} />
       )}
 
-      {!state.loading && state.data && state.kind === 'transaction' && (
-        <TransactionResult className="mt-6" data={state.data} />
-      )}
     </div>
   );
 }

@@ -1,4 +1,5 @@
 
+import ExposeDebug from '../components/ExposeDebug'
 import ThemeToggle from '../components/ThemeToggle'
 import '../styles/globals.css'
 import '../styles/theme.css'
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             })();`,
           }}
         />
+        {process.env.NODE_ENV === 'development' && <ExposeDebug />}
         <div className="min-h-screen flex flex-col">
           <header className="sticky top-0 z-20 border-b border-base-border/60 bg-[color:var(--color-bg)]/90 backdrop-blur">
             <div className="mx-auto w-full max-w-[var(--container-max)] px-4 py-3 flex items-center justify-between">

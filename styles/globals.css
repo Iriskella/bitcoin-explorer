@@ -33,3 +33,25 @@ body {
   outline-offset: 2px;
   border-radius: 8px;
 }
+
+/* bonus feature: subtle animations */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fade-in 220ms ease-out both;
+}
+.animate-pulse-soft {
+  animation: pulse-soft 1.2s ease-in-out infinite;
+}
+
+/* Enable smooth transitions for UI elements */
+.transition-base {
+  transition: background-color .15s ease, color .15s ease, border-color .15s ease, transform .15s ease, opacity .15s ease;
+}
