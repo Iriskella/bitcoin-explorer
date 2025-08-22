@@ -47,7 +47,7 @@ Update those values to match the exact Simpliance palette when available.
 - Security headers (including a basic CSP) are set in `next.config.ts`.
 - Frontend disables fetch caching for API calls to always show the latest data.
 
-## Bonus Features
+## Bonus Features implemented byond scope 
 - Accessibility: Keyboard navigation and visible focus states are implemented.
 - Centralized design tokens for easy theming and palette updates.
 - Mock backend (`server.js`) for local development and testing, including error simulation endpoints.

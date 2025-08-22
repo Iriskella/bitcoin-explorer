@@ -6,7 +6,21 @@ export function TransactionResult({ data, className }: { data: any, className?: 
     <Card className={className}>
       <h2 className="text-lg font-semibold">Transaction</h2>
       <div className="mt-3 grid gap-3">
-        <Row label="Hash" value={<code className="font-mono break-all">{data.hash}</code>} />
+        <Row label="Hash" value={
+          <span className="flex items-center gap-2">
+            <code className="font-mono break-all">{data.hash}</code>
+            <button
+              type="button"
+              aria-label="Copy transaction hash"
+              className="ml-2 px-2 py-1 rounded bg-base-border/30 hover:bg-base-border/60 text-xs"
+              onClick={() => {
+                navigator.clipboard.writeText(data.hash)
+              }}
+            >
+              Copy
+            </button>
+          </span>
+        } />
         <Row label="Fee" value={`${data.fee} BTC`} />
         <div className="grid md:grid-cols-2 gap-3">
           <Panel title="Inputs" items={data.inputs} />
