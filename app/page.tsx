@@ -1,13 +1,14 @@
 'use client';
 
 import React, { useCallback, useReducer } from 'react';
-import { detectInputType } from '../lib/utils';
+import { detectInputType, isValidBtcAddress, isValidTxHash } from '../lib/utils';
 import { fetchAddress, fetchTransaction } from '../lib/api';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
 import { Card } from '../components/ui/Card';
 import { AddressResult } from '../components/AddressResult';
 import { TransactionResult } from '../components/TransactionResult';
+
 
 type Kind = 'address' | 'transaction';
 
@@ -62,17 +63,34 @@ export default function HomePage() {
   const handleSearch = useCallback(async () => {
     const value = state.q.trim();
     if (!value) return;
+  
+    dispatch({ type: 'CLEAR' });
+    const kind: Kind = detectInputType(value);
+  
+    // Bonus:Robust client-side validation BEFORE fetching
+    if (kind === 'address' && !isValidBtcAddress(value)) {
+      dispatch({ type: 'ERROR', error: 'Invalid Bitcoin address' });
+      return;
+    }
+    if (kind === 'transaction' && !isValidTxHash(value)) {
+      dispatch({ type: 'ERROR', error: 'Invalid transaction hash' });
+      return;
+    }
+  
     dispatch({ type: 'LOADING' });
-
+  
     try {
-      const kind: Kind = detectInputType(value);
-      const result = kind === 'transaction' ? await fetchTransaction(value) : await fetchAddress(value);
+      const result = kind === 'transaction'
+        ? await fetchTransaction(value)
+        : await fetchAddress(value);
+  
       dispatch({ type: 'RESULT', kind, data: result });
       dispatch({ type: 'PUSH_HISTORY', q: value });
     } catch (err: any) {
       dispatch({ type: 'ERROR', error: err?.message || 'Something went wrong' });
     }
   }, [state.q]);
+  
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
